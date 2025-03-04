@@ -1,4 +1,21 @@
+export type PokemonType = {
+  id: string | number;
+  parsedId: string;
+  name: string;
+  url: string;
+  picture: string;
+};
+
 export const getNumberOfPages = (count: number) => Math.ceil(count / 20);
+
+export const getPokemonPicture = (pokemonId: number) => {
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
+};
+
+export const extractPokemonId = (url: string): string => {
+  const parts = url.split("/");
+  return parts[parts.length - 2];
+};
 
 export const pokemonIdFormatter = (pokemonId: string) => {
   const formattedId = Number(pokemonId);
@@ -6,6 +23,21 @@ export const pokemonIdFormatter = (pokemonId: string) => {
   if (formattedId <= 99) return `#00${pokemonId}`;
   if (formattedId <= 999) return `#0${pokemonId}`;
   return `#${pokemonId}`;
+};
+
+export const formatPokemonList = (
+  pokemonList: { name: string; url: string }[]
+): PokemonType[] => {
+  return pokemonList.map((pokemon) => {
+    const pokemonId = extractPokemonId(pokemon.url);
+    return {
+      id: pokemonId,
+      name: pokemon.name,
+      url: pokemon.url,
+      parsedId: pokemonIdFormatter(pokemonId),
+      picture: getPokemonPicture(pokemonId),
+    };
+  });
 };
 
 export const formatPokemonName = (name: string) => {
