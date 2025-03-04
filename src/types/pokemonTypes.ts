@@ -1,7 +1,7 @@
 export interface PokemonResults {
   name: string;
   url: string;
-  id: string;
+  id: string | number;
   picture: string;
 }
 

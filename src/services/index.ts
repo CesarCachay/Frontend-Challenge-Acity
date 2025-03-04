@@ -22,3 +22,14 @@ export const getPokemonDetail = async (pokemonId: number) => {
     console.error(`Error fetching pokemon defailt: ${error}`);
   }
 };
+
+export const getPokemonDetailData = async (id: string) => {
+  try {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    if (!res.ok) return null;
+    return res.json();
+  } catch (error) {
+    console.error("Failed to fetch Pokémon data", error);
+    return null;
+  }
+};
