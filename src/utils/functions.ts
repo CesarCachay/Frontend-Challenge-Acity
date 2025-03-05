@@ -1,14 +1,8 @@
-export type PokemonType = {
-  id: string | number;
-  parsedId: string;
-  name: string;
-  url: string;
-  picture: string;
-};
+import { PokemonType } from "@/types/pokemonTypes";
 
 export const getNumberOfPages = (count: number) => Math.ceil(count / 20);
 
-export const getPokemonPicture = (pokemonId: number) => {
+export const getPokemonPicture = (pokemonId: number | string) => {
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
 };
 
@@ -26,32 +20,17 @@ export const pokemonIdFormatter = (pokemonId: string) => {
 };
 
 export const formatPokemonList = (
-  pokemonList: { name: string; url: string }[]
-): PokemonType[] => {
-  return pokemonList.map((pokemon) => {
-    const pokemonId = extractPokemonId(pokemon.url);
-    return {
-      id: pokemonId,
-      name: pokemon.name,
-      url: pokemon.url,
-      parsedId: pokemonIdFormatter(pokemonId),
-      picture: getPokemonPicture(pokemonId),
-    };
-  });
-};
-
-export const pokemonFormatter = (
   pokemonList: { name: string; url: string }[] | undefined
 ): PokemonType[] => {
   if (!pokemonList) return [];
 
   return pokemonList.map((pokemon) => {
-    const pokemonId = extractPokemonId(pokemon.url);
+    const pokemonId = String(extractPokemonId(pokemon.url));
     return {
       id: pokemonId,
-      parsedId: pokemonIdFormatter(pokemonId),
       name: pokemon.name,
       url: pokemon.url,
+      parsedId: pokemonIdFormatter(pokemonId),
       picture: getPokemonPicture(pokemonId),
     };
   });

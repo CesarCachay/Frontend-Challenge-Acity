@@ -18,7 +18,7 @@ const PokemonCard: React.FC<PokemonResults> = ({ name, id, picture }) => {
       >
         <Image src={picture} alt={name} width={100} height={100} className="w-24 h-24" />
         <div className="w-full flex justify-around px-4 ">
-          <Typography>{pokemonIdFormatter(id)}</Typography>
+          <Typography>{pokemonIdFormatter(String(id))}</Typography>
           <Typography>{formatPokemonName(name)}</Typography>
         </div>
       </div>

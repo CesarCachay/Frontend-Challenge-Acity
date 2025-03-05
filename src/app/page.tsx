@@ -5,7 +5,7 @@ import { getPokemons } from "@/services";
 import HomeView from "@/components/HomeView";
 
 // utils
-import { getNumberOfPages, pokemonFormatter } from "@/utils/functions";
+import { getNumberOfPages, formatPokemonList } from "@/utils/functions";
 
 export default async function Home() {
   const page = 1;
@@ -17,7 +17,7 @@ export default async function Home() {
 
   const { count, results } = pokemonData;
   const numberOfPages = getNumberOfPages(count);
-  const formattedPokemonList = pokemonFormatter(results);
+  const formattedPokemonList = formatPokemonList(results);
 
   return (
     <HomeView

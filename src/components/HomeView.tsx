@@ -1,5 +1,4 @@
-"use client"; // ✅ Placed at the top, required for client-side state management
-
+"use client";
 import { useState } from "react";
 import { Typography } from "@mui/material";
 
@@ -9,7 +8,7 @@ import Pagination from "./ui/Pagination";
 import Spinner from "./ui/Spinner";
 
 // utils
-import { pokemonFormatter } from "@/utils/functions";
+import { formatPokemonList } from "@/utils/functions";
 
 // services
 import { getPokemons } from "@/services";
@@ -36,7 +35,7 @@ export default function HomeView({
     try {
       const res = await getPokemons(newPage);
       if (res && res.results) {
-        setPokemonList(pokemonFormatter(res.results));
+        setPokemonList(formatPokemonList(res.results));
         setPage(newPage);
       } else {
         throw new Error("Invalid API response");
