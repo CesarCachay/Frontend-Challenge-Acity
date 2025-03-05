@@ -1,10 +1,29 @@
-// components
-import PokemonView from "@/components/PokemonView";
+// services
+import { getPokemons } from "@/services";
 
-export default function Home() {
+// component
+import HomeView from "@/components/HomeView";
+
+// utils
+import { getNumberOfPages, pokemonFormatter } from "@/utils/functions";
+
+export default async function Home() {
+  const page = 1;
+  const pokemonData = await getPokemons(page);
+
+  if (!pokemonData) {
+    return <p className="text-center text-red-500">Failed to load Pokémon</p>;
+  }
+
+  const { count, results } = pokemonData;
+  const numberOfPages = getNumberOfPages(count);
+  const formattedPokemonList = pokemonFormatter(results);
+
   return (
-    <div className="flex flex-col items-center bg-white">
-      <PokemonView />
-    </div>
+    <HomeView
+      initialPage={page}
+      numberOfPages={numberOfPages}
+      initialPokemonList={formattedPokemonList}
+    />
   );
 }

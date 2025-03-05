@@ -40,6 +40,23 @@ export const formatPokemonList = (
   });
 };
 
+export const pokemonFormatter = (
+  pokemonList: { name: string; url: string }[] | undefined
+): PokemonType[] => {
+  if (!pokemonList) return [];
+
+  return pokemonList.map((pokemon) => {
+    const pokemonId = extractPokemonId(pokemon.url);
+    return {
+      id: pokemonId,
+      parsedId: pokemonIdFormatter(pokemonId),
+      name: pokemon.name,
+      url: pokemon.url,
+      picture: getPokemonPicture(pokemonId),
+    };
+  });
+};
+
 export const formatPokemonName = (name: string) => {
   const formatted = name.charAt(0).toUpperCase() + name.slice(1);
   return formatted;

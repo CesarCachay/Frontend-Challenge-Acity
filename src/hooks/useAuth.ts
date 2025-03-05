@@ -24,8 +24,6 @@ export const useAuth = () => {
   }, []);
 
   const login = useCallback((username: string, password: string) => {
-    console.log("Attempting login for:", username);
-
     const validUser = fakeUsers.find(
       (user) =>
         user.username.toLowerCase() === username.toLowerCase() &&
@@ -33,8 +31,6 @@ export const useAuth = () => {
     );
 
     if (validUser) {
-      console.log("Login successful:", validUser.fullName);
-
       const userData = { username: validUser.username, fullName: validUser.fullName };
       localStorage.setItem("user", JSON.stringify(userData));
       setUser(userData);
